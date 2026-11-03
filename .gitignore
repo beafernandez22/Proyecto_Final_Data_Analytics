@@ -1,0 +1,20 @@
+
+# Archivos temporales de Python
+__pycache__/
+*.pyc
+
+# Entornos virtuales
+.venv/
+venv/
+
+# Datos del proyecto
+data/raw/
+data/processed/
+
+# Archivos temporales de Jupyter
+.ipynb_checkpoints/
+
+# Configuración local
+.env
+.DS_Store
+Thumbs.db
