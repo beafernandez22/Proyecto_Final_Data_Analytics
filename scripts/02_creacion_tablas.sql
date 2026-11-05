@@ -111,3 +111,30 @@ KILL QUERY 23;
 -- Comprobar si el índice ya se ha creado
 SHOW INDEX FROM transacciones;
 
+
+-- Comprobar la configuración de claves foráneas
+SHOW VARIABLES LIKE 'foreign_key_checks';
+
+
+-- Crear índice para relacionar transacciones con artículos
+CREATE INDEX idx_transacciones_articulo
+ON transacciones (article_id);
+
+-- Comprobar cómo MySQL relacionaría las transacciones con los artículos
+EXPLAIN
+SELECT
+    t.article_id,
+    a.prod_name
+FROM transacciones AS t
+INNER JOIN articulos AS a
+    ON t.article_id = a.article_id
+WHERE t.article_id = '0743722002';
+
+-- Relación entre transacciones y clientes
+ALTER TABLE transacciones
+ADD CONSTRAINT fk_transacciones_cliente
+FOREIGN KEY (customer_id)
+REFERENCES clientes(customer_id);
+
+
+

@@ -148,4 +148,48 @@ LIMIT 1;
 
 SHOW FULL PROCESSLIST;
 
+-- Comprobación inicial de la relación con artículos
+SELECT
+    t.article_id,
+    a.prod_name
+FROM (
+    SELECT article_id
+    FROM transacciones
+    LIMIT 1000
+) AS t
+LEFT JOIN articulos AS a
+    ON t.article_id = a.article_id
+LIMIT 10;
 
+-- Consultar el tamaño de nuestras tres tablas
+SELECT
+    table_name,
+    ROUND(data_length / 1024 / 1024, 2) AS datos_mb,
+    ROUND(index_length / 1024 / 1024, 2) AS indices_mb
+FROM information_schema.tables
+WHERE table_schema = 'hm_retail_intelligence'
+  AND table_name IN ('clientes', 'articulos', 'transacciones');
+
+
+-- Comprobar los índices de la tabla de transacciones
+SHOW INDEX FROM transacciones;
+
+-- Comprobar las claves foráneas existentes
+USE hm_retail_intelligence;
+
+SELECT
+    CONSTRAINT_NAME,
+    TABLE_NAME,
+    COLUMN_NAME,
+    REFERENCED_TABLE_NAME,
+    REFERENCED_COLUMN_NAME
+FROM information_schema.KEY_COLUMN_USAGE
+WHERE TABLE_SCHEMA = 'hm_retail_intelligence'
+  AND TABLE_NAME = 'transacciones'
+  AND REFERENCED_TABLE_NAME IS NOT NULL;
+  
+-- Relacionar las transacciones con los artículos
+ALTER TABLE transacciones
+ADD CONSTRAINT fk_transacciones_articulos
+FOREIGN KEY (article_id)
+REFERENCES articulos(article_id);
