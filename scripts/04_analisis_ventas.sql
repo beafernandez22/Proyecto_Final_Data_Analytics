@@ -71,6 +71,24 @@ ORDER BY mes;
 -- Septiembre de 2019 y septiembre de 2020 son meses
 -- parciales y no deben compararse directamente
 -- con meses completos.
+-- Clientes únicos por mes
+-- Objetivo: analizar la evolución mensual
+-- del número de compradores diferentes.
+
+SELECT
+    DATE_FORMAT(t_dat, '%Y-%m') AS mes,
+    COUNT(DISTINCT customer_id) AS clientes_unicos
+FROM transacciones
+GROUP BY DATE_FORMAT(t_dat, '%Y-%m')
+ORDER BY mes;
+-- KPI: Resumen general de ventas
+-- Periodo: 23/09/2019 - 22/09/2020
+
+SELECT
+    COUNT(*) AS articulos_vendidos,
+    COUNT(DISTINCT customer_id) AS compradores_unicos,
+    ROUND(SUM(price), 2) AS precio_normalizado_total
+FROM transacciones;
 -- SQL 04. Meses de mayor y menor actividad
 -- Se excluyen los meses parciales de septiembre.
 
