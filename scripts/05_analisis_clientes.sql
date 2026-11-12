@@ -169,3 +169,20 @@ ORDER BY articulos_vendidos DESC;
 -- pertenencia al club y comportamiento de compra.
 -- Los estados corresponden a la información disponible
 -- en el dataset y no a un historial de cambios.
+
+-- ANÁLISIS ADICIONAL: ACTIVIDAD SEGÚN ESTADO DE AFILIACIÓN
+-- Dashboard 2: Oportunidades de clientes
+SELECT
+    COALESCE(c.club_member_status, 'UNKNOWN') AS estado_afiliacion,
+    COUNT(DISTINCT t.customer_id) AS compradores_unicos,
+    COUNT(*) AS articulos_vendidos,
+    ROUND(
+        COUNT(*) / COUNT(DISTINCT t.customer_id),
+        2
+    ) AS articulos_por_comprador
+FROM transacciones AS t
+JOIN clientes AS c
+    ON t.customer_id = c.customer_id
+GROUP BY
+    COALESCE(c.club_member_status, 'UNKNOWN')
+ORDER BY articulos_vendidos DESC;

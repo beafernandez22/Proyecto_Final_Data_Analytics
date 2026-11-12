@@ -18,3 +18,5 @@ data/processed/
 .env
 .DS_Store
 Thumbs.db
+
+*.twbr
