@@ -91,18 +91,11 @@ Entre sus funcionalidades se incluyen:
 
 **Importante:** los escenarios se basan en supuestos definidos por el usuario. No representan predicciones garantizadas ni demuestran efectos causales.
 
-### Ejecución local
+### 🚀 Aplicación publicada
 
-Desde la carpeta principal del proyecto:
+Puedes explorar el simulador interactivo de H&M Retail Intelligence aquí:
 
-```bash
-pip install -r app/requirements.txt
-streamlit run app/app.py
-```
-
-La aplicación se abrirá normalmente en:
-
-`http://localhost:8501/`
+**[Abrir H&M Retail Intelligence — Streamlit](https://hm-retail-intelligence-beatriz-fernandez.streamlit.app/)**
 
 ## 6. Principales hallazgos
 
